@@ -57,6 +57,7 @@ The general form of this homogeneous transform is:
 ![alt text][imageHomogenousTransform]
 
 In the end, the transforms are multiplied together to express the end-effector pose in the base link's coordinate system. Applying the transform to each joint, we get:
+
 ![alt text][imageTransformApplication]
 
 The end effector position can be evaluated as:
