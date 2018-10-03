@@ -2,7 +2,7 @@
 
 [imageRobotConfiguration]: ./WriteupImages/imageRobotConfiguration.jpg
 [imageDHTransform]: ./WriteupImages/imageDHTransform.png
-[imageDHParameters]: ./WriteupImages/imageDHParameters.pnh
+[imageDHParameters]: ./WriteupImages/imageDHParameters.png
 [imageHomogenousTransform]: ./misc_images/imageHomogenousTransform.png
 [imageTransformApplication]: ./misc_images/imageTransformApplication.png
 [imageFKEquation]: ./misc_images/imageFKEquation.png
