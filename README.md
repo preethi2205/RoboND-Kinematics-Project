@@ -4,6 +4,7 @@
 [imageDHTransform]: ./WriteupImages/imageDHTransform.png
 [imageDHParameters]: ./WriteupImages/imageDHParameters.pnh
 [imageHomogenousTransform]: ./misc_images/imageHomogenousTransform.png
+[imageTransformApplication]: ./misc_images/imageTransformApplication.png
 [imageFKEquation]: ./misc_images/imageFKEquation.png
 [imageWristCenterEquation]: ./misc_images/imageWristCenterEquation.png
 [imageFirstAngleDerivation]: ./misc_images/imageFirstAngleDerivation.jpg
@@ -53,11 +54,9 @@ R(z_(i), theta_(i)) is the rotation matrix between the z axis of links (i-1) and
 T(z_(i), theta_(i)) is the translation matrix between the z axis of links (i-1) and (i)
 
 The general form of this homogeneous transform is:
-
-![alt text][imageHomogeneousTransform]
+![alt text][imageHomogenousTransform]
 
 In the end, the transforms are multiplied together to express the end-effector pose in the base link's coordinate system. Applying the transform to each joint, we get:
-
 ![alt text][imageTransformApplication]
 
 The end effector position can be evaluated as:
@@ -68,7 +67,6 @@ The end effector position can be evaluated as:
 The last three joints of the robot are revolute joints. This configuration is commonly known as a "spherical wrist". Research has shown that when a spehrical wrist is present in the robot, the inverse kinematics problem can be split into two decoupled problems - finding the first three joint angles from the end-effector position, and finding the last three joint angles from the end-effector orientation. 
 
 In order to compute the joint angles, we first compute the wrist center. According to our robot configuration, the wrist center is placed at the intersection of the three revolute joints frame, which is basically wrist 5's origin. The wrist center can be derived by offseting the end effector position by the projection of (d6+l) on the z-frame of the DH transformation matrix:
-
 ![alt text][imageWristCenterEquation]
 
 Where nx, ny, nz are the rotation matrix components along the z-frame of the transformation matrix.
