@@ -1,15 +1,15 @@
 [//]: # (Image References)
 
 [imageRobotConfiguration]: ./WriteupImages/imageRobotConfiguration.jpg
-[imageDHTransform]: ./WriteupImages/imageDHTransform.jpg
-[imageDHParameters]: ./WriteupImages/imageDHParameters.jpg
+[imageDHTransform]: ./WriteupImages/imageDHTransform.png
+[imageDHParameters]: ./WriteupImages/imageDHParameters.pnh
 [imageHomogenousTransform]: ./misc_images/imageHomogenousTransform.png
 [imageFKEquation]: ./misc_images/imageFKEquation.png
 [imageWristCenterEquation]: ./misc_images/imageWristCenterEquation.png
-[imageFirstAngleDerivation]: ./misc_images/imageFirstAngleDerivation.png
-[imageFirstAngleDerivation2]: ./misc_images/imageFirstAngleDerivation2.png
-[imageFirstAngleFormation]: ./misc_images/imageFirstAngleFormation.png
-[imageSecondAngleDerivation]: ./misc_images/imageSecondAngleDerivation.png
+[imageFirstAngleDerivation]: ./misc_images/imageFirstAngleDerivation.jpg
+[imageFirstAngleDerivation2]: ./misc_images/imageFirstAngleDerivation2.jpg
+[imageFirstAngleFormation]: ./misc_images/imageFirstAngleFormation.jpg
+[imageSecondAngleDerivation]: ./misc_images/imageSecondAngleDerivation.jpg
 [imagePickAndPlace]: ./misc_images/imagePickAndPlace.png
 
 ## Project: Kinematics Pick & Place
