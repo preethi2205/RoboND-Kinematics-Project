@@ -3,15 +3,15 @@
 [imageRobotConfiguration]: ./WriteupImages/imageRobotConfiguration.jpg
 [imageDHTransform]: ./WriteupImages/imageDHTransform.png
 [imageDHParameters]: ./WriteupImages/imageDHParameters.png
-[imageHomogenousTransform]: ./misc_images/imageHomogenousTransform.png
-[imageTransformApplication]: ./misc_images/imageTransformApplication.png
-[imageFKEquation]: ./misc_images/imageFKEquation.png
-[imageWristCenterEquation]: ./misc_images/imageWristCenterEquation.png
-[imageFirstAngleDerivation]: ./misc_images/imageFirstAngleDerivation.jpg
-[imageFirstAngleDerivation2]: ./misc_images/imageFirstAngleDerivation2.jpg
-[imageFirstAngleFormation]: ./misc_images/imageFirstAngleFormation.jpg
-[imageSecondAngleDerivation]: ./misc_images/imageSecondAngleDerivation.jpg
-[imagePickAndPlace]: ./misc_images/imagePickAndPlace.png
+[imageHomogenousTransform]: ./WriteupImages/imageHomogenousTransform.png
+[imageTransformApplication]: ./WriteupImages/imageTransformApplication.png
+[imageFKEquation]: ./WriteupImages/imageFKEquation.png
+[imageWristCenterEquation]: ./WriteupImages/imageWristCenterEquation.png
+[imageFirstAngleDerivation]: ./WriteupImages/imageFirstAngleDerivation.jpg
+[imageFirstAngleDerivation2]: ./WriteupImages/imageFirstAngleDerivation2.jpg
+[imageFirstAngleFormation]: ./WriteupImages/imageFirstAngleFormation.jpg
+[imageSecondAngleDerivation]: ./WriteupImages/imageSecondAngleDerivation.jpg
+[imagePickAndPlace]: ./WriteupImages/imagePickAndPlace.png
 
 ## Project: Kinematics Pick & Place
 
