@@ -63,7 +63,10 @@ def test_code(test_case):
     ## 
 
     ## Insert IK code here!
-    
+
+    # Define DH param symbols
+
+    """
     # link offsets
     d1, d2, d3, d4, d5, d6, d7 = symbols('d1:8')
 
@@ -77,73 +80,70 @@ def test_code(test_case):
     q1, q2, q3, q4, q5, q6, q7 = symbols('q1:8')
 
     # substitution table
-    DH_Parameters = { alpha0:     0, a0:      0, d1:  0.75, q1:          q1,
-                      alpha1: -pi/2, a1:   0.35, d2:     0, q2: -pi/2. + q2, 
-                      alpha2:     0, a2:   1.25, d3:     0, q3:          q3,
-                      alpha3: -pi/2, a3: -0.054, d4:   1.5, q4:          q4,
-                      alpha4:  pi/2, a4:      0, d5:     0, q5:          q5,
-                      alpha5: -pi/2, a5:      0, d6:     0, q6:          q6,
-                      alpha6:     0, a6:      0, d7: 0.303, q7:           0}
-
+    DH_Parameters = { alpha0: 	  0, a0: 	  0, d1:  0.75, q1:          q1,
+    				  alpha1: -pi/2, a1:   0.35, d2:     0, q2: -pi/2. + q2, 
+    				  alpha2: 	  0, a2:   1.25, d3:     0, q3: 		 q3,
+    				  alpha3: -pi/2, a3: -0.054, d4:   1.5, q4:          q4,
+    				  alpha4:  pi/2, a4:      0, d5:     0, q5: 		 q5,
+    				  alpha5: -pi/2, a5:      0, d6:     0, q6: 		 q6,
+    				  alpha6:     0, a6: 	  0, d7: 0.303, q7: 		  0}
+    
+   # Transformation matrix
     def TF_compute(alpha, a, d, q):
-        TF = Matrix([[cos(q), -sin(q), 0, a],
-                    [sin(q)*cos(alpha), cos(q)*cos(alpha), -sin(alpha), -sin(alpha)*d],
-                    [sin(q)*sin(alpha), cos(q)*sin(alpha), cos(alpha), cos(alpha)*d],
-                    [0, 0, 0, 1]])
-        return TF
+    	TF = Matrix([[cos(q), -sin(q), 0, a],
+    				[sin(q)*cos(alpha), cos(q)*cos(alpha), -sin(alpha), -sin(alpha)*d],
+    				[sin(q)*sin(alpha), cos(q)*sin(alpha), cos(alpha), cos(alpha)*d],
+    				[0, 0, 0, 1]])
+    	return TF
 
-    # Apply transformations
-    T01 = TF_compute(alpha0, a0, d1, q1).subs(DH_Parameters)
-    T12 = TF_compute(alpha1, a1, d2, q2).subs(DH_Parameters)
-    T23 = TF_compute(alpha2, a2, d3, q3).subs(DH_Parameters)
-    T34 = TF_compute(alpha3, a3, d4, q4).subs(DH_Parameters)
-    T45 = TF_compute(alpha4, a4, d5, q5).subs(DH_Parameters)
-    T56 = TF_compute(alpha5, a5, d6, q6).subs(DH_Parameters)
-    T67 = TF_compute(alpha6, a6, d7, q7).subs(DH_Parameters)
+   	# Apply transformations
+   	T01 = TF_compute(alpha0, a0, d1, q1).subs(DH_Parameters)
+   	T23 = TF_compute(alpha2, a2, d3, q3).subs(DH_Parameters)
+   	T34 = TF_compute(alpha3, a3, d4, q4).subs(DH_Parameters)
+   	T45 = TF_compute(alpha4, a4, d5, q5).subs(DH_Parameters)
+   	T56 = TF_compute(alpha5, a5, d6, q6).subs(DH_Parameters)
+   	T67 = TF_compute(alpha6, a6, d7, q7).subs(DH_Parameters)
 
-    T_overall = T01*T12*T23*T34*T45*T56*T67;
+   	T_overall = T01*T12*T23*T34*T45*T56*T67;
+   	
+   	#End effector position and orientation
+   	px = req.poses[x].position.x;
+   	py = req.poses[x].position.y;
+	pz = req.poses[x].position.z;
 
-    #End effector position and orientation
-    px = req.poses[x].position.x;
-    py = req.poses[x].position.y;
-    pz = req.poses[x].position.z;
 
-    qx = req.poses[x].orientation.x;
-    qy = req.poses[x].orientation.y;
-    qz = req.poses[x].orientation.z;
-    qw = req.poses[x].orientation.w;
+   	qx = req.poses[x].orientation.x;
+   	qy = req.poses[x].orientation.y;
+	qz = req.poses[x].orientation.z;
+	qw = req.poses[x].orientation.w;
 
-    [roll,pitch,yaw] = tf.transformations.euler_from_quaternion([qx,qy,qz,qw]);
+	[roll,pitch,yaw] = tf.transformations.euler_from_quaternion([qx,qy,qz,qw]);
 
-    # Wrist center calculation
-    # Rotation matrix from end effector to base
-    r = symbols('r') 
-    p = symbols('p')
-    y = symbols('y')
+	# Wrist center calculation
+	# Rotation matrix from end effector to base
+	Rr = Matrix([[1, 0, 0],
+				 [0, cos(r), -sin(r)],
+				 [0, sin(r), cos(r)]])
+	Rp = Matrix([[cos(p), 0, sin(p)],
+				 [0, 1, 0],
+				 [-sin(p), 0, cos(p)]])
+	Ry = Matrix([[cos(y), -sin(y), 0],
+				 [sin(y), cos(y), 0],
+				 [0, 0, 1]])
 
-    Rr = Matrix([[1, 0, 0],
-                 [0, cos(r), -sin(r)],
-                 [0, sin(r), cos(r)]])
-    Rp = Matrix([[cos(p), 0, sin(p)],
-                 [0, 1, 0],
-                 [-sin(p), 0, cos(p)]])
-    Ry = Matrix([[cos(y), -sin(y), 0],
-                 [sin(y), cos(y), 0],
-                 [0, 0, 1]])
+	# End effector transformation from DH convention to URDF convention
+	RCorr = Ry.subs(y, radians(180))*Rp.subs(p, radians(-90))
 
-    # End effector transformation from DH convention to URDF convention
-    RCorr = Ry.subs(y, radians(180))*Rp.subs(p, radians(-90))
+	R_EE = Rr*Rp*Ry*RCorr;
 
-    R_EE = Ry*Rp*Rr*RCorr;
+	R_EE_num = R_EE.subs({'r': roll, 'p':pitch, 'y': yaw});
 
-    R_EE_num = R_EE.subs({'r': roll, 'p':pitch, 'y': yaw});
-
-    # From urdf
-    LinkLength = 0.303
+	# From urdf
+	LinkLength = 0.303
     
     EE = Matrix([[px],
-                 [py],
-                 [pz]])
+    			 [py],
+    			 [pz]])
 
     WC = EE - LinkLength*R_EE_num[:,2]
 
@@ -156,22 +156,22 @@ def test_code(test_case):
     sb = sqrt(r*r + (WC[2]-0.75)*(WC[2]-0.75))
     sc = 1.25;
 
-    aa = acos((sb*sb + sc*sc - sa*sa)/(2*sb*sc))
-    theta2 = pi/2 - aa - atan2(WC[2]-0.75, r)
+    aa = acos((sb*sb + sc*sc - sa*sa)/(2*b*c))
+    theta2 = pi/2 - aa - atan2(wz-0.75, r)
     
-    ab = acos((sa*sa + sc*sc - sb*sb)/(2*sa*sc))
-    theta3 = pi/2 - (ab + 0.036);
-    
+	#ab = acos((sa*sa + sc*sc - sb*sb)/(2*b*c))
+    #theta3 = pi/2 - (ab + 0.036);
+    theta3 = 0;
+
     R03 = T01[0:3,0:3]*T12[0:3,0:3]*T23[0:3,0:3];
     R03_num = R03.evalf(subs={q1: theta1, q2: theta2, q3: theta3})
 
-    R36 = R03_num.T*R_EE_num
-    #R36 = R36.evalf(subs={'r': roll, 'p':pitch, 'y': yaw});
+    R36 = R03_num.T*Rr*Rp*Ry.subs({'r': roll, 'p':pitch, 'y': yaw});
 
     theta4 = atan2(R36[2,2], -R36[0,2])
     theta5 = atan2(sqrt(R36[0,2]*R36[0,2] + R36[2,2]*R36[2,2]),R36[1,2])
     theta6 = atan2(-R36[1,1],R36[1,0])
-
+	"""
     ## 
     ########################################################################################
     
@@ -180,13 +180,30 @@ def test_code(test_case):
     ## as the input and output the position of your end effector as your_ee = [x,y,z]
 
     ## (OPTIONAL) YOUR CODE HERE!
-    FK = T_overall.evalf(subs={q1: theta1, q2: theta2, q3: theta3, q4: theta4, q5: theta5, q6: theta6})
+    #FK = T_overall.evalf(subs={q1: theta1, q2: theta2, q3: theta3, q4: theta4, q5: theta5, q6: theta6})
+
     ## End your code input for forward kinematics here!
     ########################################################################################
+   	theta1 = 0;
+	theta2 = 0;
+	theta3 = 0;
+	theta4 = 0;
+	theta5 = 0;
+	theta6 = 0;
+	
+	WC = Matrix([[0],
+				 [0],
+		 		 [0]])
+    
+    EE = Matrix([[0],
+				 [0],
+				 [0]])
 
     ## For error analysis please set the following variables of your WC location and EE location in the format of [x,y,z]
-    your_wc = [WC[0],WC[1],WC[2]] # <--- Load your calculated WC values in this array
-    your_ee = [FK[0,3],FK[1,3],FK[2,3]] # <--- Load your calculated end effector value from your forward kinematics
+    your_wc = [1,1,1];
+    your_ee = [1,1,1];
+    #your_wc = [WC[0],WC[1],WC[2]] # <--- Load your calculated WC values in this array
+    #your_ee = [EE[0],EE[1],EE[2]] # <--- Load your calculated end effector value from your forward kinematics
     ########################################################################################
 
     ## Error analysis
